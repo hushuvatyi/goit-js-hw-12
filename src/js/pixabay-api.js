@@ -1,10 +1,5 @@
 import { showMessage } from './showMessage';
-
 import { refs } from './refs';
-
-const options = {
-  method: 'GET',
-};
 
 export async function getGalleryData(queryValue) {
   try {
@@ -16,7 +11,10 @@ export async function getGalleryData(queryValue) {
       safesearch: true,
     });
 
-    const response = await fetch(refs.BASE_URL + searchParams, options).then();
+    const response = await fetch(
+      refs.BASE_URL + searchParams,
+      refs.options
+    ).then();
     if (!response.ok) {
       showMessage(refs.message.error, refs.color.orange);
       return;
