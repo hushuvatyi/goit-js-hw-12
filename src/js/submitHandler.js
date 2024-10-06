@@ -29,7 +29,7 @@ export async function submitHandler(event) {
       renderGallery(galleryData, refs.gallery);
     }
   } catch (error) {
-    showMessage(refs.message.exception + error, refs.color.orange);
+    showMessage(refs.message.exception + error, refs.color.red);
     refs.gallery.innerHTML = '';
   }
 

@@ -17,7 +17,6 @@ export const refs = {
 
   color: {
     blue: '#abd4f8',
-    orange: '#f28111',
     red: '#e97782',
   },
 };
