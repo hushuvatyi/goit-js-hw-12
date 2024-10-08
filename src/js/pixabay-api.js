@@ -1,26 +1,21 @@
+import axios from 'axios';
 import { showMessage } from './showMessage';
 import { refs } from './refs';
+import { renderAPI } from './render-functions';
 
-export async function getGalleryData(queryValue) {
+export async function getGalleryData(queryValue, page) {
   try {
-    const searchParams = new URLSearchParams({
-      key: refs.API_KEY,
-      q: queryValue,
-      image_type: 'photo',
-      orientation: 'horizontal',
-      safesearch: true,
-    });
+    renderAPI.fetchLoader();
+    refs.config.params.key = refs.API_KEY;
+    refs.config.params.q = queryValue;
+    refs.config.params.page = page;
 
-    const response = await fetch(
-      refs.BASE_URL + searchParams,
-      refs.options
-    ).then();
-    if (!response.ok) {
-      showMessage(refs.message.error, refs.color.orange);
-      return;
-    }
-    return await response.json();
+    const response = await axios.get(refs.BASE_URL, refs.config);
+    return response.data;
   } catch (err) {
-    showMessage(`${refs.message.exception} ERROR:  ${err}`, refs.color.orange);
+    showMessage(
+      `${refs.message.exception} ERROR: ${err.message}` + 2,
+      refs.color.red
+    );
   }
 }
